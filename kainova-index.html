@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KAINOVA — From Textile to Tomorrow</title>
+<style>
+:root{
+  --green:#5f8057; --green2:#78946e; --deep:#244b3a; --mint:#dce8d8;
+  --cream:#f7f5ef; --paper:#ffffff; --ink:#22342c; --muted:#718076;
+  --line:#dfe6df; --shadow:0 12px 30px rgba(41,70,51,.12);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:#eef3ee;color:var(--ink)}
+button,input,select,textarea{font:inherit} button{cursor:pointer;border:0}
+.app{max-width:470px;margin:0 auto;min-height:100vh;background:
+linear-gradient(90deg,rgba(255,255,255,.55) 1px,transparent 1px),
+linear-gradient(rgba(255,255,255,.55) 1px,transparent 1px),#dbe8d9;
+background-size:28px 28px;padding-bottom:92px}
+.page{display:none;min-height:100vh}.page.active{display:block}
+.topbar{height:64px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:10}
+.topbar h2{margin:0;font-size:20px;letter-spacing:1px}.back{background:transparent;color:#fff;font-size:27px}
+.content{padding:18px}
+.logo{font-size:44px;letter-spacing:9px;font-weight:800;text-align:center;color:var(--deep);margin:10px 0 2px}
+.tag{text-align:center;letter-spacing:4px;font-size:10px;color:var(--muted)}
+.auth{min-height:100vh;padding:38px 28px;background:linear-gradient(180deg,#f8faf6 0%,#d7e6d5 100%)}
+.mascot{width:110px;height:110px;border-radius:30px;margin:22px auto;background:linear-gradient(135deg,#f5f1e7,#78946e);display:grid;place-items:center;font-size:54px;box-shadow:var(--shadow)}
+.title{text-align:center;font-size:36px;margin:12px 0 28px;color:var(--deep);font-weight:800}
+.field{display:grid;gap:7px;margin:14px 0}.field label{font-weight:700}.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;outline:none;width:100%}
+.btn{width:100%;padding:14px 18px;border-radius:16px;background:var(--green);color:#fff;font-weight:800;letter-spacing:.5px}.btn.outline{background:#fff;color:var(--green);border:1px solid var(--green)}.link{text-align:center;color:var(--deep);font-weight:700;margin:15px 0}
+.hero{background:linear-gradient(120deg,var(--green),#84a17b);border-radius:20px;padding:18px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero h3{margin:0;font-size:23px}.hero p{margin:7px 0 14px;color:#e9f1e7}.mini-mascot{position:absolute;right:16px;bottom:12px;font-size:52px}
+.search{display:flex;gap:8px;margin:15px 0}.search input{flex:1;border:1px solid var(--line);border-radius:15px;padding:12px}.chips{display:flex;gap:8px;overflow:auto;padding-bottom:6px}.chip{white-space:nowrap;padding:9px 13px;border-radius:12px;background:#fff;color:var(--muted);border:1px solid var(--line)}.chip.active{background:var(--green);color:#fff}
+.card{background:#fff;border-radius:20px;padding:14px;margin:14px 0;box-shadow:0 8px 22px rgba(42,60,48,.08)}.row{display:flex;gap:12px;align-items:center}.thumb{width:110px;height:75px;border-radius:12px;background:linear-gradient(135deg,#8e8476,#d4cec5 45%,#546d59);flex:none}.card h3{margin:0 0 5px}.muted{color:var(--muted);font-size:14px}.detail{color:var(--green);font-weight:800;margin-top:8px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.category{background:linear-gradient(145deg,#43634c,#78946e);color:#fff;border-radius:14px;padding:16px;font-weight:700;min-height:92px;display:flex;align-items:end}
+.section-title{font-size:23px;margin:18px 0 8px}.feature{height:150px;border-radius:20px;padding:22px;color:#fff;background:linear-gradient(90deg,rgba(35,67,48,.82),rgba(35,67,48,.2)),linear-gradient(120deg,#48664e,#c3d1c0);display:flex;flex-direction:column;justify-content:end}.materials{display:flex;gap:10px;overflow:auto}.material-card{min-width:160px;background:#fff;border-radius:16px;padding:10px;box-shadow:0 8px 18px rgba(42,60,48,.08)}.material-img{height:100px;border-radius:12px;background:linear-gradient(140deg,#777,#e6e1d9 30%,#4c6653 70%)}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.spec{background:#f7faf6;padding:12px;border-radius:15px}.impact{background:#e6f0df;border-radius:18px;padding:14px;color:var(--deep)}
+.steps{display:flex;justify-content:space-between;gap:5px;margin:8px 0 20px}.step{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);font-weight:800}.step.active{background:var(--green);color:#fff}
+.option{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:15px;margin:10px 0;background:#fff}.option input{accent-color:var(--green)}
+.drop{border:2px dashed #90a58c;border-radius:20px;padding:42px 18px;text-align:center;background:#f8fbf7;color:var(--green);font-weight:800}.hidden{display:none!important}
+.timeline{position:relative;padding-left:34px}.timeline:before{content:"";position:absolute;left:11px;top:10px;bottom:10px;width:3px;background:#c8d7c4}.event{position:relative;padding:0 0 22px}.event:before{content:"✓";position:absolute;left:-34px;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #a8bca3;color:var(--green);font-weight:900}.event.pending:before{content:"";border-color:#1e2c24}.event h4{margin:0 0 4px}
+.chat{height:calc(100vh - 180px);display:flex;flex-direction:column}.messages{flex:1;overflow:auto;padding:10px 0}.bubble{max-width:76%;padding:12px 15px;border-radius:18px;margin:8px 0;background:#fff}.bubble.me{margin-left:auto;background:var(--green);color:#fff}.filemsg{display:flex;gap:10px;align-items:center}.composer{display:flex;gap:8px;background:#fff;border-radius:16px;padding:8px}.composer input{flex:1;border:0;outline:0}.send{width:42px;border-radius:12px;background:var(--green);color:#fff}
+.profile-head{text-align:center;padding:15px}.avatar{width:100px;height:100px;border-radius:50%;margin:auto;background:linear-gradient(135deg,#b8a28b,#2e4b3b);display:grid;place-items:center;font-size:42px}.menu-title{color:var(--muted);margin:22px 0 8px}.menu-item{background:#fff;padding:17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(470px,100%);height:76px;background:var(--green);border-radius:22px 22px 0 0;display:flex;justify-content:space-around;align-items:center;z-index:20}.nav{background:transparent;color:#eaf2e8;font-size:11px;display:grid;gap:4px;justify-items:center}.nav b{font-size:20px}.nav.active{color:#fff}.switch{width:46px;height:24px;border-radius:20px;background:#cdd8cb;position:relative}.switch:after{content:"";width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:3px;left:4px}.dark .switch{background:var(--green)}.dark .switch:after{left:24px}
+body.dark{background:#172019}.dark .app{background-color:#203226}.dark .card,.dark .material-card,.dark .menu-item,.dark .bubble:not(.me),.dark .field input,.dark .field textarea,.dark .field select,.dark .chip{background:#26372b;color:#f5f8f4;border-color:#415545}.dark{color:#eef4ec}.dark .title,.dark .logo{color:#d8ecd4}
+@media(min-width:800px){body{background:#cad8c9}.app{box-shadow:0 0 60px rgba(0,0,0,.15)}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<section id="login" class="page active auth">
+  <div class="logo">KAINOVA</div><div class="tag">FROM TEXTILE TO TOMORROW</div>
+  <div class="mascot">♻️</div><h1 class="title">Welcome<br>Back!</h1>
+  <div class="field"><label>Email</label><input id="email" value="hello@kainova.com"></div>
+  <div class="field"><label>Password</label><input id="password" type="password" value="123456"></div>
+  <div class="link">Lupa Password?</div><button class="btn" onclick="go('dashboard')">Login</button>
+  <div class="link">Belum Punya Akun?</div><button class="btn outline" onclick="go('verify')">Create Account</button>
+</section>
+
+<section id="verify" class="page auth">
+  <div class="mascot">✉️</div><h1 class="title">Verify Your Email</h1>
+  <div class="card" style="text-align:center"><h2>Account Verification</h2><p class="muted">Please enter the 4 digit code sent to Your Email</p>
+  <div style="display:flex;gap:10px;justify-content:center;margin:25px 0"><input maxlength="1" style="width:52px;height:52px;text-align:center;border-radius:14px;border:1px solid var(--line)"><input maxlength="1" style="width:52px;height:52px;text-align:center;border-radius:14px;border:1px solid var(--line)"><input maxlength="1" style="width:52px;height:52px;text-align:center;border-radius:14px;border:1px solid var(--line)"><input maxlength="1" style="width:52px;height:52px;text-align:center;border-radius:14px;border:1px solid var(--line)"></div>
+  <button class="btn" onclick="go('dashboard')">Verify</button><div class="link">Resend Code</div></div>
+</section>
+
+<section id="dashboard" class="page">
+  <div class="topbar"><h2>Dashboard</h2><span>☰</span></div><main class="content">
+  <h2>Hello, Sobat Kainova!<br><small>SELAMAT DATANG!</small></h2>
+  <div class="hero"><h3>Sustainable Impact</h3><p>Today's Update!</p><b>Lihat Update →</b><span class="mini-mascot">♻️</span></div>
+  <div class="search"><input placeholder="Cari aktivitas atau material..."></div>
+  <div class="chips"><button class="chip active">All</button><button class="chip">Limbah Terserap</button><button class="chip">Pesanan Aktif</button><button class="chip">Material Tersedia</button></div>
+  <div class="card"><div class="row"><div class="thumb"></div><div><h3>Pickup Limbah Tekstil</h3><div class="muted">250 KG berhasil dikumpulkan</div><div class="detail" onclick="go('waste')">See Details →</div></div></div></div>
+  <div class="card"><div class="row"><div class="thumb"></div><div><h3>KainPanel Terra</h3><div class="muted">Request sample sedang diproses</div><div class="detail" onclick="go('tracking')">See Details →</div></div></div></div>
+  </main>
+</section>
+
+<section id="materials" class="page"><div class="topbar"><h2>Explore Materials</h2><span>⚙</span></div><main class="content">
+<h2>Explore Materials</h2><p class="muted">Find the right sustainable material for your project...</p>
+<div class="grid2"><div class="category">Decorative</div><div class="category">Acoustic</div><div class="category">Insulation</div><div class="category">Furniture Board</div></div>
+<h2 class="section-title">Featured Material</h2><div class="feature"><b>DECORATIVE PANEL</b><span>Engineered from recycled textile fibers</span></div>
+<h2 class="section-title">Explore Collection <small class="muted">See All</small></h2>
+<div class="materials" id="materialList"></div>
+<div class="hero" style="margin-top:20px;text-align:center"><h3>BUILT FOR YOUR PROJECT</h3></div>
+</main></section>
+
+<section id="detail" class="page"><div class="topbar"><button class="back" onclick="go('materials')">‹</button><h2>Material Detail</h2><span></span></div><main class="content">
+<div class="card"><div class="material-img" style="height:180px"></div></div>
+<div class="card"><h1>Decorative Panel</h1><p class="muted">Engineered from recycled textile fibers for modern interior applications.</p><div class="specs"><div class="spec"><b>♻ Material</b><br>Recycled Textile Composite</div><div class="spec"><b>▱ Size</b><br>120 × 60 cm</div><div class="spec"><b>═ Thickness</b><br>12 mm</div><div class="spec"><b>⬡ Strength</b><br>High Performance</div></div></div>
+<div class="impact"><b>🌱 Sustainability Impact</b><br>Reduce waste and support sustainable interior materials.</div>
+<div style="height:10px"></div><button class="btn" onclick="alert('Sample request berhasil dikirim!')">Request Sample →</button><div style="height:10px"></div><button class="btn outline" onclick="go('custom')">Custom Order →</button>
+</main></section>
+
+<section id="custom" class="page"><div class="topbar"><h2>Custom Order</h2><span></span></div><main class="content">
+<div class="steps" id="steps"></div>
+<div id="customContent"></div>
+<div style="display:flex;gap:10px;margin-top:16px"><button class="btn outline" onclick="prevStep()">Kembali</button><button class="btn" onclick="nextStep()">Lanjut</button></div>
+</main></section>
+
+<section id="waste" class="page"><div class="topbar"><button class="back" onclick="go('dashboard')">‹</button><h2>Setor Limbah Tekstil</h2><span></span></div><main class="content">
+<div class="hero"><h3>Give Your Textile<br>Waste a Second Life</h3><span class="mini-mascot">♻️</span></div>
+<div class="field"><label>Berat Limbah (KG)</label><input type="number" value="40"></div>
+<label><b>Jenis Kain</b></label><div class="chips" style="flex-wrap:wrap;margin-top:10px"><button class="chip active">Katun</button><button class="chip">Polyester</button><button class="chip">Denim</button><button class="chip">Mixed</button><button class="chip">Others</button></div>
+<div class="field"><label>Pickup Location</label><input value="Jalan Kainova No 100"></div>
+<div class="field"><label>Pickup Date</label><input type="date" value="2026-08-29"></div>
+<button class="btn" onclick="alert('Request Pickup berhasil dikirim!')">Request Pickup</button>
+</main></section>
+
+<section id="tracking" class="page"><div class="topbar"><h2>Order Tracking</h2><span></span></div><main class="content">
+<div class="card row"><div class="thumb"></div><div><h3>Order #KNV-001</h3><div class="muted">KAINOVA Acoustic Panel</div><b>Quantity 50 Unit</b><br><span class="muted">Estimated 30 Agustus 2026</span></div></div>
+<div class="card"><div class="timeline">
+<div class="event"><h4>Pengajuan Diterima</h4><span class="muted">28 Agustus 2026, 17.45</span></div>
+<div class="event"><h4>Sortasi Bahan</h4><span class="muted">28 Agustus 2026, 20.00</span></div>
+<div class="event"><h4>Produksi</h4><span class="muted">29 Agustus 2026, 10.55</span></div>
+<div class="event pending"><h4>Quality Control</h4></div><div class="event pending"><h4>Siap Dikirim</h4></div><div class="event pending"><h4>Selesai</h4></div>
+</div></div><div class="impact">🔔 Kami akan mengirimkan notifikasi jika status order berubah.</div>
+</main></section>
+
+<section id="chat" class="page"><div class="topbar"><button class="back">‹</button><h2>Chat & Collaboration<br><small style="font-size:12px">Kainova Team • Online</small></h2><span>☎</span></div><main class="content chat">
+<div class="messages"><div class="bubble me">Halo Kainova Team, Bisa Update Progress Order #KNV-001</div><div class="bubble">Halo, Berikut Update Terbaru Order Anda</div><div class="bubble filemsg">📄 <span><b>Production Update</b><br>#KNV-001.pdf</span></div></div>
+<div class="composer"><input id="msg" placeholder="Type a Message....."><button class="send" onclick="sendMsg()">➤</button></div>
+</main></section>
+
+<section id="profile" class="page"><div class="topbar"><button class="back">‹</button><h2>Profile</h2><span></span></div><main class="content">
+<div class="profile-head"><div class="avatar">👤</div><h2>Jonathan Patterson</h2><p class="muted">hello@reallygreatsite.com</p></div>
+<div class="menu-title">General Settings</div>
+<div class="menu-item"><span>☀ Mode Dark & Light</span><button class="switch" onclick="toggleDark()"></button></div>
+<div class="menu-item"><span>🔑 Change Password</span><span>›</span></div><div class="menu-item"><span>🈯 Language</span><span>›</span></div>
+<div class="menu-title">Information</div><div class="menu-item"><span>▣ About App</span><span>›</span></div><div class="menu-item"><span>▤ Terms & Conditions</span><span>›</span></div><div class="menu-item"><span>⬟ Privacy Policy</span><span>›</span></div><div class="menu-item"><span>⌯ Share This App</span><span>›</span></div>
+</main></section>
+
+<nav class="bottom">
+<button class="nav" data-target="dashboard" onclick="go('dashboard')"><b>⌂</b>Home</button>
+<button class="nav" data-target="dashboard" onclick="go('dashboard')"><b>♧</b>Notification</button>
+<button class="nav" data-target="custom" onclick="go('custom')"><b>🛒</b>Custom Order</button>
+<button class="nav" data-target="chat" onclick="go('chat')"><b>☁</b>Chat</button>
+<button class="nav" data-target="profile" onclick="go('profile')"><b>♙</b>Profile</button>
+</nav>
+</div>
+
+<script>
+const pages=document.querySelectorAll('.page');let currentStep=1;
+const materialData=['KainPanel Terra','KainAcoustic Grid','KainBoard Core','KainBoard Block'];
+function go(id){pages.forEach(p=>p.classList.toggle('active',p.id===id));window.scrollTo(0,0);document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id));if(id==='custom')renderCustom();}
+document.getElementById('materialList').innerHTML=materialData.map((m,i)=>`<div class="material-card" onclick="go('detail')"><div class="material-img"></div><h4>${m}</h4><span class="muted">${i===1?'Acoustic':'Sustainable Material'}</span></div>`).join('');
+function renderCustom(){
+const titles=['Pilih Material','Pilih Spek','Upload Desain','Jumlah','Review'];
+document.getElementById('steps').innerHTML=titles.map((_,i)=>`<div class="step ${i+1===currentStep?'active':''}">${i+1}</div>`).join('');
+let c=document.getElementById('customContent');
+if(currentStep===1)c.innerHTML=`<h2>Pilih Material</h2><p class="muted">Pilih Material Yang Sesuai Dengan Kebutuhan Proyek Anda</p>${['Kainova Decorative Panel 10 MM','Kainova Acoustic Panel 10 MM','Kainova Insulation Panel 10 MM'].map((x,i)=>`<label class="option"><input type="radio" name="material" ${i===0?'checked':''}><span><b>${x}</b><br><small class="muted">Recycled textile composite</small></span></label>`).join('')}`;
+if(currentStep===2)c.innerHTML=`<h2>Pilih Spek</h2><div class="field"><label>Ukuran</label><select><option>120 × 60 cm</option><option>Custom</option></select></div><div class="field"><label>Ketebalan</label><select><option>10 MM</option><option>12 MM</option><option>15 MM</option></select></div><div class="field"><label>Catatan</label><textarea placeholder="Tambahkan kebutuhan spesifikasi..."></textarea></div>`;
+if(currentStep===3)c.innerHTML=`<h2>Upload Desain</h2><p class="muted">Unggah Desain Referensi Anda</p><div class="drop" onclick="document.getElementById('file').click()">🖼️<br><br>Drag & Drop File Here<br>Atau<br><br><button class="btn" type="button">Pilih File</button><input id="file" type="file" hidden onchange="this.parentElement.innerHTML='✓ File berhasil dipilih: '+this.files[0].name"></div>`;
+if(currentStep===4)c.innerHTML=`<h2>Jumlah Pesanan</h2><div class="field"><label>Jumlah Unit</label><input type="number" min="1" value="50"></div><div class="impact">Estimasi akan disesuaikan dengan jumlah, spesifikasi, dan kapasitas produksi.</div>`;
+if(currentStep===5)c.innerHTML=`<h2>Review Pesanan</h2><div class="card"><b>Material</b><p>Decorative Panel 10 MM</p><b>Desain</b><p>Referensi desain siap diproses</p><b>Jumlah</b><p>50 Unit</p></div><button class="btn" onclick="alert('Custom Order berhasil dikirim!');go('tracking')">Submit Order</button>`;
+}
+function nextStep(){if(currentStep<5){currentStep++;renderCustom()}}function prevStep(){if(currentStep>1){currentStep--;renderCustom()}}
+function toggleDark(){document.body.classList.toggle('dark')}
+function sendMsg(){const i=document.getElementById('msg');if(i.value.trim()){document.querySelector('.messages').insertAdjacentHTML('beforeend',`<div class="bubble me">${i.value}</div>`);i.value=''}}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=function(){this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active')});
+</script>
+</body>
+</html>
